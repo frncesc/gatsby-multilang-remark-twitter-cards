@@ -1,8 +1,8 @@
 {
   "name": "gatsby-remark-twitter-cards",
-  "version": "0.0.1-alpha5",
+  "version": "0.0.1-alpha6",
   "description": "Remark plugin for generating twitter card graphics.",
-  "repository": "https://github.com/alessbell/gatsby-remark-social-cards",
+  "repository": "https://github.com/alessbell/gatsby-remark-twitter-cards",
   "author": "Alessia Bellisario",
   "license": "MIT",
   "private": false,
