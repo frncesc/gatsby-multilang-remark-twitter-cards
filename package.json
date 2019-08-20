@@ -1,7 +1,7 @@
 {
-  "name": "gatsby-remark-social-image-cards",
-  "version": "0.0.1",
-  "description": "Remark plugin for generating social card graphics.",
+  "name": "gatsby-remark-twitter-cards",
+  "version": "0.0.1-alpha5",
+  "description": "Remark plugin for generating twitter card graphics.",
   "repository": "https://github.com/alessbell/gatsby-remark-social-cards",
   "author": "Alessia Bellisario",
   "license": "MIT",
@@ -13,7 +13,6 @@
     "social",
     "sharing",
     "twitter",
-    "facebook",
     "card",
     "graphic",
     "image"
@@ -31,8 +30,9 @@
   },
   "dependencies": {
     "dateformat": "^3.0.3",
-    "jimp": "^0.6.0",
-    "path": "^0.12.7"
+    "jimp": "0.6.0",
+    "path": "0.12.7",
+    "wasm-twitter-card": "0.1.0"
   },
   "devDependencies": {
     "babel-cli": "6.26.0",
