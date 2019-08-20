@@ -1,6 +1,6 @@
 ## gatsby-remark-twitter-cards
 
-![twitter card in action](https://imgur.com/UGFRs9g)
+![gatsby-remark-twitter-cards in action](https://i.imgur.com/UGFRs9g.png)
 
 `gatsby-remark-twitter-cards` creates individual twitter card images at build time for inclusion in your site's SEO metadata in order to provide a better social sharing experience.
 
