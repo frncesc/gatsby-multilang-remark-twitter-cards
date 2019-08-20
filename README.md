@@ -20,8 +20,8 @@ If you'd like to play with the alpha release, it can be added to your remark plu
           {
             resolve: `gatsby-remark-twitter-cards`,
             options: {
-              title: 'anti/pattern (blog title here)',
-              author: 'alessia bellisario (author's name)',
+              title: 'anti/pattern', // blog title here
+              author: 'alessia bellisario',
             },
           },
         ],
