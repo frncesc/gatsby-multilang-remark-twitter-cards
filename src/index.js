@@ -2,16 +2,56 @@ const path = require("path");
 const Jimp = require("jimp");
 const twitterCard = require("wasm-twitter-card");
 
-const generateCard = async ({ buffer }) => {
-  const width = 1200;
-  const height = 630;
-  let image = await new Jimp({ data: buffer, width, height });
-  return image;
-};
+const WIDTH = 1200;
+const HEIGHT = 630;
 
-module.exports = ({ markdownNode }, { author, title }) => {
+async function writeTextToCard(buffer) {
+  return await new Jimp({ data: buffer, width: WIDTH, height: HEIGHT });
+}
+
+async function generateBackground(background) {
+  if (background.match(/[0-9A-Fa-f]{6}/g)) {
+    return await new Jimp(WIDTH, HEIGHT, background);
+  }
+  return Jimp.read(background);
+}
+
+function validateFontSize(fontSize, fieldName) {
+  if (
+    isNaN(fontSize) ||
+    parseInt(Number(fontSize)) != fontSize ||
+    isNaN(parseInt(fontSize, 10))
+  ) {
+    throw new Error(`Please pass an integer as ${fieldName}`);
+  }
+}
+
+function hexToRgb(hex) {
+  const hexCode = hex.replace(/^#/, "");
+  const bigint = parseInt(hexCode, 16);
+  const r = (bigint >> 16) & 255;
+  const g = (bigint >> 8) & 255;
+  const b = bigint & 255;
+  return [r, g, b];
+}
+
+module.exports = (
+  { markdownNode },
+  {
+    title,
+    author,
+    background = "#000000",
+    fontColor = "#ffffff",
+    titleFontSize = 96,
+    subtitleFontSize = 60,
+    fontStyle = "monospace",
+    separator = "|",
+  }
+) => {
   const post = markdownNode.frontmatter;
   if (!markdownNode.fields) return;
+  validateFontSize(titleFontSize, "titleFontSize");
+  validateFontSize(subtitleFontSize, "subtitleFontSize");
 
   const output = path.join(
     "./public",
@@ -19,14 +59,28 @@ module.exports = ({ markdownNode }, { author, title }) => {
     "twitter-card.jpg"
   );
 
-  generateCard({
-    buffer: twitterCard.generate_text(post.title, `${title} | ${author}`),
-  })
+  let formattedDetails = "";
+  if (title || author) {
+    formattedDetails =
+      title && author ? `${title} ${separator} ${author}` : title || author;
+  }
+
+  const buffer = twitterCard.generate_text(
+    post.title,
+    formattedDetails,
+    titleFontSize,
+    subtitleFontSize,
+    hexToRgb(fontColor),
+    fontStyle !== "monospace"
+  );
+
+  return Promise.all([generateBackground(background), writeTextToCard(buffer)])
+    .then(([base, text]) => base.composite(text, 0, 0))
     .then(image =>
       image
         .writeAsync(output)
-        .then(() => console.log("Generated Twitter Card:", output))
-        .catch(err => console.log("ERROR GENERATING TWITTER CARD", err))
+        .then(() => console.log("Generated Twitter Card: ", output))
+        .catch(err => err)
     )
     .catch(console.error);
 };
