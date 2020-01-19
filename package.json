@@ -1,15 +1,19 @@
 {
-  "name": "gatsby-remark-twitter-cards",
-  "version": "0.2.0",
+  "name": "@francesc/gatsby-multilang-remark-twitter-cards",
+  "version": "0.1.0",
   "description": "Gatsby Remark plugin for generating Twitter Open Graph cards",
-  "repository": "https://github.com/alessbell/gatsby-remark-twitter-cards",
-  "author": "Alessia Bellisario",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/frncesc/gatsby-multilang-remark-twitter-cards"
+  },
+  "author": "Original work by Syntra and Alessia Bellisario, adapted by Francesc Busquets for gatsby-plugin-intl",
   "license": "MIT",
   "private": false,
   "keywords": [
     "gatsby",
     "gatsby-plugin",
     "remark",
+    "gatsby-plugin-intl",
     "social",
     "sharing",
     "twitter",
@@ -23,13 +27,8 @@
     "lint": "eslint --ext .js src",
     "prepublishOnly": "npm run build"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "dependencies": {
-    "jimp": "0.6.4",
+    "jimp": "0.9.3",
     "path": "0.12.7",
     "wasm-twitter-card": "0.3.0"
   },
@@ -38,13 +37,11 @@
     "babel-eslint": "10.0.3",
     "babel-preset-env": "1.7.0",
     "cross-env": "6.0.3",
-    "eslint": "6.5.1",
-    "eslint-config-prettier": "6.4.0",
-    "husky": "3.0.9",
-    "lint-staged": "9.4.2",
-    "prettier": "1.18.2"
+    "eslint": "6.8.0",
+    "eslint-config-prettier": "6.9.0",
+    "prettier": "1.19.1"
   },
   "peerDependencies": {
-    "gatsby": ">=2.0.0"
+    "gatsby": ">=2.18.25"
   }
 }

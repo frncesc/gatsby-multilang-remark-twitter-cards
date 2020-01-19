@@ -56,8 +56,10 @@ module.exports = (
   validateFontSize(titleFontSize, "titleFontSize");
   validateFontSize(subtitleFontSize, "subtitleFontSize");
 
+  const DEFAULT_LANG = 'en';
   const output = path.join(
     "./public",
+    markdownNode.fields.lang || DEFAULT_LANG,
     markdownNode.fields.slug,
     "twitter-card.jpg"
   );

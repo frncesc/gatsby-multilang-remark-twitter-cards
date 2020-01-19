@@ -1,4 +1,12 @@
-# gatsby-remark-twitter-cards 📇
+# gatsby-multilang-remark-twitter-cards 🇺🇳📇
+
+This project is forked from [gatsby-remark-twitter-cards](https://github.com/alessbell/gatsby-remark-twitter-cards), which in turn was forked from [gatsby-remark-social-cards](https://github.com/syntra/gatsby-remark-social-cards)
+
+The main goal of this fork is to make it compatible with multi-languguage sites using [gatsby-plugin-intl](https://www.gatsbyjs.org/packages/gatsby-plugin-intl/). To achieve this goal, a field named `lang` must be defined in all markdown nodes.
+
+The original gatsby-remark-twitter-cards README follows:
+
+---
 
 ![gatsby-remark-twitter-cards in action](https://i.imgur.com/FgObEBR.jpg)
 
