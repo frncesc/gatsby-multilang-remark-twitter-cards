@@ -1,12 +1,8 @@
-# gatsby-multilang-remark-twitter-cards 🇺🇳📇
+# gatsby-remark-multilang-twitter-cards 🇺🇳📇
 
 This project is forked from [gatsby-remark-twitter-cards](https://github.com/alessbell/gatsby-remark-twitter-cards), which in turn was forked from [gatsby-remark-social-cards](https://github.com/syntra/gatsby-remark-social-cards)
 
 The main goal of this fork is to make it compatible with multi-languguage sites using [gatsby-plugin-intl](https://www.gatsbyjs.org/packages/gatsby-plugin-intl/). To achieve this goal, a field named `lang` must be defined in all markdown nodes.
-
-The original gatsby-remark-twitter-cards README follows:
-
----
 
 ![gatsby-remark-twitter-cards in action](https://i.imgur.com/FgObEBR.jpg)
 
@@ -29,7 +25,7 @@ It can be added to your remark plugins in `gatsby-config.js` like so:
               title: 'anti/pattern', // website title
               separator: '|', // default
               author: 'alessia bellisario',
-              background: require.resolve('./content/assets/base.png') // path to 1200x630px file or hex code, defaults to black (#000000)
+              background: require.resolve('./content/assets/base.png'), // path to 1200x630px file or hex code, defaults to black (#000000)
               fontColor: '#228B22', // defaults to white (#ffffff)
               titleFontSize: 96, // default
               subtitleFontSize: 60, // default

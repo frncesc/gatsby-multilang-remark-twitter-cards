@@ -9,11 +9,13 @@
   "author": "Original work by Syntra and Alessia Bellisario, adapted by Francesc Busquets for gatsby-plugin-intl",
   "license": "MIT",
   "private": false,
+  "main": "index.js",
   "keywords": [
     "gatsby",
     "gatsby-plugin",
     "remark",
     "gatsby-plugin-intl",
+    "intl",
     "social",
     "sharing",
     "twitter",
@@ -22,10 +24,7 @@
     "image"
   ],
   "scripts": {
-    "prebuild": "npm run lint",
-    "build": "cross-env BABEL_ENV=production babel src --out-dir .",
-    "lint": "eslint --ext .js src",
-    "prepublishOnly": "npm run build"
+    "lint": "eslint --ext .js src"
   },
   "dependencies": {
     "jimp": "0.9.3",
@@ -33,15 +32,8 @@
     "wasm-twitter-card": "0.3.0"
   },
   "devDependencies": {
-    "babel-cli": "6.26.0",
-    "babel-eslint": "10.0.3",
-    "babel-preset-env": "1.7.0",
-    "cross-env": "6.0.3",
     "eslint": "6.8.0",
     "eslint-config-prettier": "6.9.0",
     "prettier": "1.19.1"
-  },
-  "peerDependencies": {
-    "gatsby": ">=2.18.25"
   }
 }
