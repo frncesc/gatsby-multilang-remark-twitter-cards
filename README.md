@@ -20,17 +20,18 @@ It can be added to your remark plugins in `gatsby-config.js` like so:
       options: {
         plugins: [
           {
-            resolve: `gatsby-remark-twitter-cards`,
+            resolve: `francesc@gatsby-remark-multilang-twitter-cards`,
             options: {
-              title: 'anti/pattern', // website title
-              separator: '|', // default
-              author: 'alessia bellisario',
-              background: require.resolve('./content/assets/base.png'), // path to 1200x630px file or hex code, defaults to black (#000000)
-              fontColor: '#228B22', // defaults to white (#ffffff)
-              titleFontSize: 96, // default
-              subtitleFontSize: 60, // default
-              fontStyle: 'monospace', // default
-              fontFile: require.resolve('./assets/fonts/someFont.ttf') // will override fontStyle - path to custom TTF font
+              localizedTitles: {en: 'English title', ca: 'Títol català'}, // website titles
+              localizedAuthors: {en: 'English author', ca: 'Autor català'}, // website author names
+              defaultLanguage: 'en', // default language (defaults to 'en')
+              separator: '|', // defaults to '|'
+              background: require.resolve('./content/assets/base.jpg'), // path to 1200x630px file or hex code, defaults to black (#000000)
+              fontColor: '#ffffff', // defaults to white (#ffffff)
+              titleFontSize: 96, // defaults to 96
+              subtitleFontSize: 60, // defaults to 60
+              fontStyle: 'monospace', // default font style
+              fontFile: require.resolve('./content/assets/someFont.ttf'), // will override fontStyle - path to custom TTF font
             },
           },
         ],
@@ -41,17 +42,18 @@ It can be added to your remark plugins in `gatsby-config.js` like so:
 
 ## Plugin Options
 
-| Option             | Required | Type                                               | Default value |
-| ------------------ | -------- | -------------------------------------------------- | ------------- |
-| `title`            | ❌       | string                                             | `""`          |
-| `separator`        | ❌       | string (character that separates title and author) | `"|"`         |
-| `author`           | ❌       | string                                             | `""`          |
-| `background`       | ❌       | hex or file path                                   | `"#000000"`   |
-| `fontColor`        | ❌       | hex                                                | `"#ffffff"`   |
-| `titleFontSize`    | ❌       | int                                                | `96`          |
-| `subtitleFontSize` | ❌       | int                                                | `60`          |
-| `fontStyle`        | ❌       | "monospace" or "sans-serif"                        | `monospace`   |
-| `fontFile`         | ❌       | path to TTF font file                              | ❌            |
+| Option             | Required | Type                                               | Default value        |
+| ------------------ | -------- | -------------------------------------------------- | -------------------- |
+| `localizedTitles`  | ❌       | object                                             | `{en: 'Untitled'}`   |
+| `localizedAuthors` | ❌       | object                                             | `{en: 'Mr. Gatsby'}` |
+| `defaultLanguage`  | ❌       | string                                             | `en`                 |
+| `separator`        | ❌       | string (character that separates title and author) | `"|"`                |
+| `background`       | ❌       | hex or file path                                   | `"#000000"`          |
+| `fontColor`        | ❌       | hex                                                | `"#ffffff"`          |
+| `titleFontSize`    | ❌       | int                                                | `96`                 |
+| `subtitleFontSize` | ❌       | int                                                | `60`                 |
+| `fontStyle`        | ❌       | "monospace" or "sans-serif"                        | `monospace`          |
+| `fontFile`         | ❌       | path to TTF font file                              | ❌                   |
 
 The images will be saved in your site's `/public` folder, and the link to your `twitter:image` should be an absolute URL (something like `${siteUrl}${blogPostSlug}twitter-card.jpg`) E.g. for [this blog post](https://aless.co/how-to-build-a-keyboard/) the generated image can be found at the link [https://aless.co/how-to-build-a-keyboard/twitter-card.jpg](https://aless.co/how-to-build-a-keyboard/twitter-card.jpg).
 
@@ -66,3 +68,4 @@ Further instructions on how to include open graph images in the metadata of your
 - [x] Custom font color
 - [x] Accept path to background image
 - [x] OR solid color background with hex code
+- [x] Multiple languages

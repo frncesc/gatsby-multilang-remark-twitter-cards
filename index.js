@@ -1,4 +1,9 @@
 /*eslint-env node*/
+
+/**
+ * Based on [gatsby-remark-twitter-cards](https://github.com/alessbell/gatsby-remark-twitter-cards)
+ */
+
 const fs = require("fs");
 const path = require("path");
 const Jimp = require("jimp");
@@ -40,29 +45,40 @@ function hexToRgb(hex) {
 module.exports = (
   { markdownNode },
   {
-    title,
-    author,
-    background = "#000000",
-    fontColor = "#ffffff",
+    localizedTitles = { en: 'Title' },
+    localizedAuthors = { en: 'Author' },
+    defaultLanguage = 'en',
+    background = '#000000',
+    fontColor = '#ffffff',
     titleFontSize = 96,
     subtitleFontSize = 60,
-    fontStyle = "monospace",
-    separator = "|",
+    fontStyle = 'monospace',
+    separator = '|',
     fontFile,
   }
 ) => {
   const post = markdownNode.frontmatter;
-  if (!markdownNode.fields) return;
-  validateFontSize(titleFontSize, "titleFontSize");
-  validateFontSize(subtitleFontSize, "subtitleFontSize");
+  if (!markdownNode.fields)
+    return;
 
-  const DEFAULT_LANG = 'en';
+  const lang = markdownNode.fields.lang || defaultLanguage;
+
   const output = path.join(
     "./public",
-    markdownNode.fields.lang || DEFAULT_LANG,
+    lang,
     markdownNode.fields.slug,
     "twitter-card.jpg"
   );
+
+  // Avoid repetitive calls
+  if (fs.existsSync(output))
+    return;
+
+  validateFontSize(titleFontSize, "titleFontSize");
+  validateFontSize(subtitleFontSize, "subtitleFontSize");
+
+  const title = localizedTitles[lang] || localizedTitles[defaultLanguage] || '';
+  const author = localizedAuthors[lang] || localizedAuthors[defaultLanguage] || '';
 
   let formattedDetails = "";
   if (title || author) {
