@@ -24,7 +24,7 @@
     "image"
   ],
   "scripts": {
-    "lint": "eslint --ext .js src"
+    "lint": "eslint --ext .js ."
   },
   "dependencies": {
     "jimp": "0.9.3",
@@ -32,8 +32,6 @@
     "wasm-twitter-card": "0.3.0"
   },
   "devDependencies": {
-    "eslint": "6.8.0",
-    "eslint-config-prettier": "6.9.0",
-    "prettier": "1.19.1"
+    "eslint": "6.8.0"
   }
 }

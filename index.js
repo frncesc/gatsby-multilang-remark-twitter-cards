@@ -140,8 +140,6 @@ async function onPostBootstrap({ getNodesByType, reporter }, pluginOptions) {
   validateFontSize(pluginOptions.titleFontSize, 'titleFontSize');
   validateFontSize(pluginOptions.subtitleFontSize, 'subtitleFontSize');
   validateLocalizedObject(pluginOptions.localizedTitles, 'localizedTitles');
-  // Author not required:
-  // validateLocalizedObject(pluginOptions.localizedAuthors, 'localizedAuthors');
 
   const nodes = getNodesByType('Mdx').concat(getNodesByType('MarkdownRemark'));
   reporter.verbose(`Generating social cards for ${nodes.length} markdown nodes`);
