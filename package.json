@@ -1,12 +1,12 @@
 {
-  "name": "@francesc/gatsby-remark-multilang-twitter-cards",
-  "version": "0.1.0",
-  "description": "Gatsby Remark plugin for generating Twitter Open Graph cards",
+  "name": "@francesc/gatsby-plugin-multilang-twitter-cards",
+  "version": "0.1.2",
+  "description": "Gatsby plugin for generating Twitter Open Graph cards",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/frncesc/gatsby-remark-multilang-twitter-cards"
+    "url": "git+https://github.com/frncesc/gatsby-plugin-multilang-twitter-cards"
   },
-  "author": "Original work by Syntra and Alessia Bellisario, adapted by Francesc Busquets for gatsby-plugin-intl",
+  "author": "Original work by Syntra and Alessia Bellisario, adapted by Francesc Busquets for sites using gatsby-plugin-intl",
   "license": "MIT",
   "private": false,
   "main": "index.js",

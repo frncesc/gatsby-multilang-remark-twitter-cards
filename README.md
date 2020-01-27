@@ -1,4 +1,4 @@
-# gatsby-remark-multilang-twitter-cards 🇺🇳📇
+# gatsby-plugin-multilang-twitter-cards 🇺🇳📇
 
 This project is forked from [gatsby-remark-twitter-cards](https://github.com/alessbell/gatsby-remark-twitter-cards), which in turn was forked from [gatsby-remark-social-cards](https://github.com/syntra/gatsby-remark-social-cards)
 
@@ -10,31 +10,25 @@ The main goal of this fork is to make it compatible with multi-languguage sites 
 
 It uses the [`wasm-twitter-card`](https://github.com/alessbell/wasm-twitter-card) library under the hood: by using Rust libraries compiled to WebAssembly, we can work around some of the limitations of the most popular dependency-free image editing library for Node.js, jimp.
 
-It can be added to your remark plugins in `gatsby-config.js` like so:
+It can be added to your plugins in `gatsby-config.js` like so:
 
 ```js
   plugins: [
     // ...
     {
-      resolve: `gatsby-transformer-remark`,
+      resolve: `francesc@gatsby-remark-multilang-twitter-cards`,
       options: {
-        plugins: [
-          {
-            resolve: `francesc@gatsby-remark-multilang-twitter-cards`,
-            options: {
-              localizedTitles: {en: 'English title', ca: 'Títol català'}, // website titles
-              localizedAuthors: {en: 'English author', ca: 'Autor català'}, // website author names
-              defaultLanguage: 'en', // default language (defaults to 'en')
-              separator: '|', // defaults to '|'
-              background: require.resolve('./content/assets/base.jpg'), // path to 1200x630px file or hex code, defaults to black (#000000)
-              fontColor: '#ffffff', // defaults to white (#ffffff)
-              titleFontSize: 96, // defaults to 96
-              subtitleFontSize: 60, // defaults to 60
-              fontStyle: 'monospace', // default font style
-              fontFile: require.resolve('./content/assets/someFont.ttf'), // will override fontStyle - path to custom TTF font
-            },
-          },
-        ],
+        localizedTitles: {en: 'English title', ca: 'Títol català'}, // website titles - required
+        localizedAuthors: {en: 'English author', ca: 'Autor català'}, // website author names - optional
+        defaultLanguage: 'en', // default language (defaults to 'en')
+        separator: '|', // defaults to '|'
+        background: require.resolve('./content/assets/base.jpg'), // optional path to 1200x630px file or hex code, defaults to black (#000000)
+        fontColor: '#ffffff', // defaults to white (#ffffff)
+        titleFontSize: 96, // defaults to 96
+        subtitleFontSize: 60, // defaults to 60
+        fontStyle: 'monospace', // defaults to 'monospace'
+        fontFile: require.resolve('./content/assets/someFont.ttf'), // optional path to a custom TTF font - will override fontStyle
+        cardFileName: 'twitter-card.jpg', // optional file name used with social cards - defaults to 'twitter-card-jpg'
       },
     },
   ],
@@ -54,6 +48,7 @@ It can be added to your remark plugins in `gatsby-config.js` like so:
 | `subtitleFontSize` | ❌       | int                                                | `60`                 |
 | `fontStyle`        | ❌       | "monospace" or "sans-serif"                        | `monospace`          |
 | `fontFile`         | ❌       | path to TTF font file                              | ❌                   |
+| `cardFileName`     | ❌       | file name used when creating social cards          | `twitter-card.jpg`   |
 
 The images will be saved in your site's `/public` folder, and the link to your `twitter:image` should be an absolute URL (something like `${siteUrl}${blogPostSlug}twitter-card.jpg`) E.g. for [this blog post](https://aless.co/how-to-build-a-keyboard/) the generated image can be found at the link [https://aless.co/how-to-build-a-keyboard/twitter-card.jpg](https://aless.co/how-to-build-a-keyboard/twitter-card.jpg).
 
@@ -69,3 +64,4 @@ Further instructions on how to include open graph images in the metadata of your
 - [x] Accept path to background image
 - [x] OR solid color background with hex code
 - [x] Multiple languages
+- [x] Convert the gatsby-remark plugin into a regular Gatsby plugin
