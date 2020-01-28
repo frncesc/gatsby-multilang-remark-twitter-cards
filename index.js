@@ -12,10 +12,12 @@ const twitterCard = require("wasm-twitter-card");
 const WIDTH = 1200;
 const HEIGHT = 630;
 
-async function writeTextToCard(buffer) {
+// Generates a Jimp object from a bitmap buffer, currently created by wasm-twitter-card
+async function generateTextLayer(buffer) {
   return await new Jimp({ data: buffer, width: WIDTH, height: HEIGHT });
 }
 
+// Generates a Jimp object with the background picture or plain color
 async function generateBackground(background) {
   if (background.match(/[0-9A-Fa-f]{6}/g)) {
     return await new Jimp(WIDTH, HEIGHT, background);
@@ -23,6 +25,7 @@ async function generateBackground(background) {
   return Jimp.read(background);
 }
 
+// Font size attributes should be always integer numbers
 function validateFontSize(fontSize, fieldName) {
   if (
     isNaN(fontSize) ||
@@ -33,11 +36,13 @@ function validateFontSize(fontSize, fieldName) {
   }
 }
 
+// Localized objects should contain at least one string for the default language
 function validateLocalizedObject(obj, fieldName) {
   if (typeof obj !== 'object' || Object.keys(obj).length < 1 || typeof obj[Object.keys(obj)[0]] !== 'string')
     throw new Error(`Please pass an object with strings defined for each language as ${fieldName}`);
 }
 
+// Converts a hex color string into an array of integers
 function hexToRgb(hex) {
   const hexCode = hex.replace(/^#/, "");
   const bigint = parseInt(hexCode, 16);
@@ -47,6 +52,29 @@ function hexToRgb(hex) {
   return [r, g, b];
 }
 
+// Default values for plugin options
+const defaultPluginOptions = {
+  localizedTitles: null,
+  localizedAuthors: [],
+  defaultLanguage: 'en',
+  background: '#000000',
+  fontColor: '#ffffff',
+  titleFontSize: 96,
+  subtitleFontSize: 60,
+  fontStyle: 'monospace',
+  separator: '|',
+  fontFile: null,
+  cardFileName: 'twitter-card.jpg',
+};
+
+/**
+ * Generates a social card image file
+ * 
+ * @param {object} node - Gatsby node of type MarkdownRemark or Mdx. Should contain a `fields` grupu with `slug` and `lang` attributes, and also a `frontmatter` with a title
+ * @param {object} reporter - Gatsby reporter, used to log the status
+ * @param {object} pluginOptions - Plugin options (see README.md)
+ * @returns {Promise}
+ */
 async function createCard(
   node,
   reporter,
@@ -113,37 +141,28 @@ async function createCard(
     fontToUint8Array
   );
 
-  return Promise.all([generateBackground(background), writeTextToCard(buffer)])
+  return Promise.all([generateBackground(background), generateTextLayer(buffer)])
     .then(([base, text]) => base.composite(text, 0, 0))
     .then(image => image.writeAsync(output))
     .then(() => reporter.info(`Created social card for ${lang}${slug}`));
 }
 
-const defaultPluginOptions = {
-  localizedTitles: null,
-  localizedAuthors: [],
-  defaultLanguage: 'en',
-  background: '#000000',
-  fontColor: '#ffffff',
-  titleFontSize: 96,
-  subtitleFontSize: 60,
-  fontStyle: 'monospace',
-  separator: '|',
-  fontFile: null,
-  cardFileName: 'twitter-card.jpg',
-};
-
+// Get all Gatsby nodes of type `MarkdownRemark` and/or `Mdx` and builds social cards for each one
+// Called by the gatsby build process at the end of the [Bootstrap phase](https://www.gatsbyjs.org/docs/overview-of-the-gatsby-build-process/#steps-of-the-bootstrap-phase)
 async function onPostBootstrap({ getNodesByType, reporter }, pluginOptions) {
 
   pluginOptions = { ...defaultPluginOptions, ...pluginOptions };
 
+  // Chack params
   validateFontSize(pluginOptions.titleFontSize, 'titleFontSize');
   validateFontSize(pluginOptions.subtitleFontSize, 'subtitleFontSize');
   validateLocalizedObject(pluginOptions.localizedTitles, 'localizedTitles');
 
+  // Collect nodes
   const nodes = getNodesByType('Mdx').concat(getNodesByType('MarkdownRemark'));
   reporter.verbose(`Generating social cards for ${nodes.length} markdown nodes`);
 
+  // Create social cards
   return Promise.all(nodes.map(node => createCard(node, reporter, pluginOptions)))
     .then(cards => reporter.info(`${cards.length} social cards created`))
     .catch(err => reporter.error(`Error creating social cards`, err));
