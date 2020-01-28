@@ -2,8 +2,8 @@
   "name": "@francesc/gatsby-plugin-multilang-twitter-cards",
   "title": "Gatsby multi-lang twitter cards",
   "description": "Gatsby plugin for generating Twitter Open Graph cards",
-  "version": "0.1.3",
-  "main": "index.js",
+  "version": "0.1.4",
+  "main": "gatsby-node.js",
   "readmeFilename": "README.md",
   "author": "Original work by Syntra and Alessia Bellisario, adapted by Francesc Busquets for sites using gatsby-plugin-intl",
   "repository": {
@@ -28,11 +28,11 @@
     "lint": "eslint --ext .js ."
   },
   "dependencies": {
-    "jimp": "0.9.3",
-    "path": "0.12.7",
-    "wasm-twitter-card": "0.3.0"
+    "path": "0.12.7"
   },
   "devDependencies": {
-    "eslint": "6.8.0"
+    "eslint": "6.8.0",
+    "jimp": "^0.9.3",
+    "wasm-twitter-card": "^0.3.0"
   }
 }
