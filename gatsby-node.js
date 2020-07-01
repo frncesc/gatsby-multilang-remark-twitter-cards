@@ -70,7 +70,7 @@ const defaultPluginOptions = {
 /**
  * Generates a social card image file
  * 
- * @param {object} node - Gatsby node of type MarkdownRemark or Mdx. Should contain a `fields` grupu with `slug` and `lang` attributes, and also a `frontmatter` with a title
+ * @param {object} node - Gatsby node of type MarkdownRemark or Mdx. Should contain a `fields` group with `slug` and `lang` attributes, and also a `frontmatter` with a title
  * @param {object} reporter - Gatsby reporter, used to log the status
  * @param {object} pluginOptions - Plugin options (see README.md)
  * @returns {Promise}
