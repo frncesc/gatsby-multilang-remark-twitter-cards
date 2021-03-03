@@ -14,26 +14,20 @@ const HEIGHT = 630;
 
 // Generates a Jimp object from a bitmap buffer, currently created by wasm-twitter-card
 async function generateTextLayer(buffer) {
-  return await new Jimp({ data: buffer, width: WIDTH, height: HEIGHT });
+  return new Jimp({ data: buffer, width: WIDTH, height: HEIGHT });
 }
 
 // Generates a Jimp object with the background picture or plain color
 async function generateBackground(background) {
-  if (background.match(/[0-9A-Fa-f]{6}/g)) {
-    return await new Jimp(WIDTH, HEIGHT, background);
-  }
-  return Jimp.read(background);
+  return background.match(/[0-9A-Fa-f]{6}/g)
+    ? new Jimp(WIDTH, HEIGHT, background)
+    : Jimp.read(background);
 }
 
 // Font size attributes should be always integer numbers
 function validateFontSize(fontSize, fieldName) {
-  if (
-    isNaN(fontSize) ||
-    parseInt(Number(fontSize)) != fontSize ||
-    isNaN(parseInt(fontSize, 10))
-  ) {
+  if (isNaN(fontSize) || parseInt(Number(fontSize)) != fontSize || isNaN(parseInt(fontSize, 10)))
     throw new Error(`Please pass an integer as ${fieldName}`);
-  }
 }
 
 // Localized objects should contain at least one string for the default language
